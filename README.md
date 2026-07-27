@@ -1,42 +1,33 @@
-# Simulador Humanware — GZero
+# Calculadora de Coerência — GZero
 
-Protótipo do simulador de cenários organizacionais. O usuário marca ações; a
-ferramenta devolve, para cada um dos 4 âmbitos, o cenário provável em
-**2027 · 2030 · 2035 · 2040 · 2045 · 2050**.
-
-Sem IA e sem API: os cenários são textos pré-escritos e o roteamento é
-determinístico.
+Protótipo v3. A organização escolhe as ações que condizem com o jeito real de
+operar; a ferramenta simula o "corpo" da organização reagindo a essas escolhas,
+marco a marco, e devolve os futuros prováveis ao longo de **24 anos**.
 
 ## Publicação
 
-Site estático de um arquivo só. `index.html` é autossuficiente — fontes, dados
-e logo vão embutidos, sem nenhuma requisição externa.
+Site estático de um arquivo só. `index.html` é autossuficiente — todo o CSS e o
+JavaScript vão embutidos.
 
 Na Vercel: importe este repositório, deixe o framework como **Other** e não
 configure build nem diretório de saída. O `index.html` na raiz já é o site.
 
-## De onde vem este arquivo
+## Conexão com IA
 
-`index.html` é **gerado** — não edite aqui. A fonte de verdade fica no projeto
-`calculadora de coerência`:
+O v3 chama uma API compatível com OpenAI (base URL, chave e modelo informados
+na própria tela). A chave fica só no navegador do usuário e não é versionada.
+
+Aberto por `file://` (duplo clique), o navegador **bloqueia** essas chamadas de
+rede — por isso a tela mostra um aviso e um passo a passo para rodar em
+`http://localhost`. Servido pela Vercel (HTTPS), as chamadas funcionam
+normalmente.
+
+## Como atualizar
+
+`index.html` é o entregável. Para publicar uma nova versão, substitua o arquivo,
+faça commit e push:
 
 ```
-dados/humanware.json            conteúdo (24 ações + 72 cenários)
-visual/cenarios-humanware.html  app
-build/gerar_assets.py           JSON  -> data.js / fonts.css / gzero.svg
-build/gerar_bundle.py           app   -> index.html
+cp nova-versao.html index.html
+git commit -am "atualiza calculadora" && git push
 ```
-
-Para atualizar esta pasta e republicar:
-
-```
-cd ".../calculadora de coerência"
-python3 build/gerar_bundle.py ~/Documents/GitHub/humanware
-cd ~/Documents/GitHub/humanware && git commit -am "atualiza simulador" && git push
-```
-
-## Tipografia
-
-O arquivo embute ABC Whyte, ABC Whyte Inktrap e ABC Whyte Mono em versão
-**Trial**. Antes de qualquer uso público em produção, trocar por licença
-comercial.
